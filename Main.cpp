@@ -1976,10 +1976,10 @@ int RenderizaEscena(GLvoid)								// Aqui se dibuja todo lo que aparecera en la
         }
         if (iNumViewPort == 1)//Se crea el puerto de vista 2 (Indicadores de estado del personaje)
         {
-            glViewport(0, 0, glWidth, 0);
+            glViewport(0, 0, glWidth, glHeight*0.25f);
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
-            gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(0), 1.0f, 2000.0f);
+            gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.25f), 1.0f, 2000.0f);
         }
 
         glMatrixMode(GL_MODELVIEW);
