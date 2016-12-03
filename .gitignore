@@ -1,13 +1,9 @@
 *.suo
 OGL_CodigoBase.sln
 *.obj
-Debug/3ds.obj
 *.obj
 *.tlog
-Debug/Main.obj
 *.log
-Debug/vc110.idb
-Debug/OGL_CodigoBase.pdb
 OGL_CodigoBase.opensdf
 *.sdf
 OGL_CodigoBase.vcxproj
@@ -16,3 +12,13 @@ UpgradeLog.XML
 *.css
 _UpgradeReport_Files/UpgradeReport.xslt
 *.png
+Debug
+Texturas
+Modelos
+Librerias
+
+Debug/OGL_CodigoBase.lastbuildstate
+*.lastbuildstate
+*.pdb
+Debug/vc110.pdb
+*.obj
