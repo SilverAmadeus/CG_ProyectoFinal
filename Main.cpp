@@ -23,16 +23,16 @@ int glHeight;
 GLUquadricObj	*e;
 
 //Nombre y ubicación de los modelos
-#define FILE_NAME1p  "Modelos/torso.3ds"
-#define FILE_NAME2p  "Modelos/cabeza.3ds"
-#define FILE_NAME3p  "Modelos/pierna_a.3ds"
-#define FILE_NAME4p  "Modelos/pierna_b.3ds"
+#define FILE_NAME1p  "Modelos/torso_ninja.3ds"
+#define FILE_NAME2p  "Modelos/cabeza_ninja.3ds"
+#define FILE_NAME3p  "Modelos/pierna_ninja_a.3ds"
+#define FILE_NAME4p  "Modelos/pierna_ninja_b.3ds"
 #define FILE_NAME5p  "Modelos/pie.3ds"
-#define FILE_NAME6p  "Modelos/brazo der_a.3ds"
-#define FILE_NAME7p  "Modelos/brazo der_b.3ds"
-#define FILE_NAME8p  "Modelos/brazo izq_a.3ds"
-#define FILE_NAME9p  "Modelos/brazo izq_b.3ds"
-#define FILE_NAME10p "Modelos/arma.3ds"
+#define FILE_NAME6p  "Modelos/brazo_ninja_a.3ds"
+#define FILE_NAME7p  "Modelos/brazo_ninja_c.3ds"
+#define FILE_NAME8p  "Modelos/brazo_ninja_b.3ds"
+#define FILE_NAME9p  "Modelos/brazo_ninja_d.3ds"
+#define FILE_NAME10p "Modelos/arma_espada.3ds"
 
 //Contenedores de texturas de cada modelo
 CTga textureModel1[10];
@@ -2344,7 +2344,8 @@ void dibujaPersonaje()
 
     //Arma
         glPushMatrix();
-        glTranslatef(-0.2f, -0.7f, 0.0f);
+        glRotatef(90, 1.0f, 0.0f, 0.0f);
+        glTranslatef(-0.1f, 0.2f, 0.8f);
         g_Load3ds.Render3DSFile(&g_3DModel10, textureModel10, 1);
         glPopMatrix();
         glPopMatrix();
@@ -2450,17 +2451,17 @@ int RenderizaEscena(GLvoid)								// Aqui se dibuja todo lo que aparecera en la
     {
         if (iNumViewPort == 0)//Se crea el puerto de vista 1 (Escenario)
         {
-            glViewport(0, glHeight*0.25f, glWidth, glHeight*0.75f);
+            glViewport(0, glHeight*0.05f, glWidth, glHeight*0.75f);
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
             gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.75f), 1.0f, 2000.0f);
         }
         if (iNumViewPort == 1)//Se crea el puerto de vista 2 (Indicadores de estado del personaje)
         {
-            glViewport(0, 0, glWidth, glHeight*0.25f);
-            glMatrixMode(GL_PROJECTION);
-            glLoadIdentity();
-            gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.25f), 1.0f, 2000.0f);
+            //glViewport(0, 0, glWidth, glHeight*0.25f);
+            //glMatrixMode(GL_PROJECTION);
+            //glLoadIdentity();
+            //gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.25f), 1.0f, 2000.0f);
         }
 
         glMatrixMode(GL_MODELVIEW);
