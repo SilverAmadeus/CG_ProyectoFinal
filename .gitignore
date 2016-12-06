@@ -11,11 +11,6 @@ OGL_CodigoBase.vcxproj
 UpgradeLog.XML
 *.css
 _UpgradeReport_Files/UpgradeReport.xslt
-*.png
-Debug
-Texturas
-Modelos
-Librerias
 
 Debug/OGL_CodigoBase.lastbuildstate
 *.lastbuildstate
