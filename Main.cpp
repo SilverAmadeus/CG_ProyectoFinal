@@ -121,16 +121,16 @@ GLvoid ReDimensionaEscenaGL(GLsizei width, GLsizei height)	// Redimensiona e ini
 
 void CargaTexturas()
 {
-    textura[0].LoadTGA("Texturas/t1.tga");
-    textura[1].LoadTGA("Texturas/t2.tga");
-    textura[2].LoadTGA("Texturas/t3.tga");
-    textura[3].LoadTGA("Texturas/t4.tga");
-    textura[4].LoadTGA("Texturas/t5.tga");
-    textura[5].LoadTGA("Texturas/t6.tga");
-    textura[6].LoadTGA("Texturas/t7.tga");
-    textura[7].LoadTGA("Texturas/t8.tga");
-    textura[8].LoadTGA("Texturas/t9.tga");
-    textura[9].LoadTGA("Texturas/t10.tga");
+    textura[0].LoadTGA("Texturas/Edifici.tga");
+    textura[1].LoadTGA("Texturas/Ladrillo.tga");
+    textura[2].LoadTGA("Texturas/tejado.tga");
+    textura[3].LoadTGA("Texturas/Banqueta.tga");
+    textura[4].LoadTGA("Texturas/foreground.tga");
+    textura[5].LoadTGA("Texturas/caja_1.tga");
+    textura[6].LoadTGA("Texturas/caja_2.tga");
+    textura[7].LoadTGA("Texturas/caja_3.tga");
+    textura[8].LoadTGA("Texturas/final_1.tga");
+    textura[9].LoadTGA("Texturas/final_2.tga");
     textura[10].LoadTGA("Texturas/t11.tga");
     textura[11].LoadTGA("Texturas/t12.tga");
     textura[12].LoadTGA("Texturas/t13.tga");
@@ -614,10 +614,15 @@ void dibujaCaja(int texture_selection)
     glEnable(GL_TEXTURE_2D);
     if (texture_selection == 1)
     {
-        glBindTexture(GL_TEXTURE_2D, textura[9].texID);
+        glBindTexture(GL_TEXTURE_2D, textura[5].texID);
+    }
+    else if(texture_selection == 2){
+        glBindTexture(GL_TEXTURE_2D, textura[6].texID);
     }
     else
-        glBindTexture(GL_TEXTURE_2D, textura[21].texID);
+    {
+        glBindTexture(GL_TEXTURE_2D, textura[7].texID);
+    }
 
     glBegin(GL_QUADS);
     glColor3f(0.5f, 0.5f, 0.8f);
@@ -1810,6 +1815,7 @@ void dibujaEscenario(int render)
         glPolygonMode(GL_FRONT, GL_LINE);
 
 	//Piso
+    //Se debe buscar una texture para este plano
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.9f, 0.0f);
 		glNormal3f(0.0f,1.0f,0.0f);
@@ -1820,16 +1826,20 @@ void dibujaEscenario(int render)
 	glEnd();
 
 	//Piso_foreground
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textura[4].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.1f, 0.5f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(  0.0f,   0.0f, 40.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(  0.0f, -10.0f, 40.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(800.0f, -10.0f, 40.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(800.0f,   0.0f, 40.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 0.0f, -10.0f, 40.0f);
+		glTexCoord2f(60.0f, 0.0f); glVertex3f( 800.0f, -10.0f, 40.0f);
+		glTexCoord2f(60.0f, 1.0f); glVertex3f(800.0f, 0.0f, 40.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f,   0.0f, 40.0f);
 	glEnd();
+        glDisable(GL_TEXTURE_2D);
 
 	//Piso_trasero
+        //Necesita Textura
 	glBegin(GL_QUADS);
 		glColor3f(0.1f, 0.1f, 0.8f);
 		glNormal3f(0.0f,1.0f,0.0f);
@@ -1840,82 +1850,93 @@ void dibujaEscenario(int render)
 	glEnd();
 
 	//Pared_entre_pisos
-	glBegin(GL_QUADS);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textura[3].texID);
+        glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.5f, 0.5f);
 		glNormal3f(0.0f,0.0f,1.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(  0.0f, 0.0f, 0.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(800.0f, 0.0f, 0.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(800.0f, 5.0f, 0.0f);
+		glTexCoord2f(60.0f, 0.0f); glVertex3f(800.0f, 0.0f, 0.0f);
+		glTexCoord2f(60.0f, 1.0f); glVertex3f(800.0f, 5.0f, 0.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(  0.0f, 5.0f, 0.0f);
 	glEnd();
 
 	//Pared_casa
+
+        glBindTexture(GL_TEXTURE_2D, textura[0].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.1f, 0.9f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f( 0.0f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(40.0f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(40.0f, 40.0f, 1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(40.0f,  0.0f, 1.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(40.0f, 40.0f, 1.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f( 0.0f, 40.0f, 1.0f);
 	glEnd();
 
 	//Pared_casa_columna
+        glBindTexture(GL_TEXTURE_2D, textura[1].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.5f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(40.0f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(45.0f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(45.0f, 40.0f, 3.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(40.0f, 40.0f, 3.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(45.0f,  0.0f, 3.0f);
+		glTexCoord2f(1.0f, 8.0f); glVertex3f(45.0f, 40.0f, 3.0f);
+		glTexCoord2f(0.0f, 8.0f); glVertex3f(40.0f, 40.0f, 3.0f);
 	glEnd();
 
 	//Pared_casa_columna_YZ_negativo
+        glBindTexture(GL_TEXTURE_2D, textura[1].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.2f, 0.8f);
 		glNormal3f(-1.0f,0.0f,0.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(40.0f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(40.0f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(40.0f, 40.0f, 3.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(40.0f, 40.0f, 1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(40.0f,  0.0f, 3.0f);
+		glTexCoord2f(1.0f, 8.0f); glVertex3f(40.0f, 40.0f, 3.0f);
+		glTexCoord2f(0.0f, 8.0f); glVertex3f(40.0f, 40.0f, 1.0f);
 	glEnd();
 
 	//Pared_casa_columna_YZ_positivo_a
+        glBindTexture(GL_TEXTURE_2D, textura[1].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.2f, 0.8f);
 		glNormal3f(1.0f,0.0f,0.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(45.0f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(45.0f,  0.0f, -1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(45.0f, 40.0f, -1.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(45.0f, 40.0f, 3.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(45.0f,  0.0f, -1.0f);
+		glTexCoord2f(1.0f, 8.0f); glVertex3f(45.0f, 40.0f, -1.0f);
+		glTexCoord2f(0.0f, 8.0f); glVertex3f(45.0f, 40.0f, 3.0f);
 	glEnd();
 
 	//Pared_casa_YZ_positivo_b
+        glBindTexture(GL_TEXTURE_2D, textura[0].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.9f, 0.3f, 1.0f);
 		glNormal3f(1.0f,0.0f,0.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(42.0f,  0.0f,   1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(42.0f,  0.0f, -40.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(42.0f, 40.0f, -40.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(42.0f,  0.0f, -40.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(42.0f, 40.0f, -40.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(42.0f, 40.0f,   1.0f);
 	glEnd();
 
+
 	//Tejado_casa
+        glBindTexture(GL_TEXTURE_2D, textura[2].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.2f, 0.5f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f( 0.0f, 42.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(43.0f, 42.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(43.0f, 52.0f, 1.0f);
+		glTexCoord2f(0.0f, 0.2f); glVertex3f( 0.0f, 42.0f, 1.0f);
+		glTexCoord2f(5.0f, 0.2f); glVertex3f(43.0f, 42.0f, 1.0f);
+		glTexCoord2f(5.0f, 1.0f); glVertex3f(43.0f, 52.0f, 1.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(  .0f, 52.0f, 1.0f);
 	glEnd();
+
 	
 	//Tejado_casa_XZ_positivo
 	glBegin(GL_QUADS);
 		glColor3f(0.9f, 0.2f, 0.8f);
 		glNormal3f(1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(43.0f, 42.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(43.0f, 42.0f, -43.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(43.0f, 52.0f, -43.0f);
+		glTexCoord2f(0.0f, 0.2f); glVertex3f(43.0f, 42.0f, 1.0f);
+		glTexCoord2f(5.0f, 0.2f); glVertex3f(43.0f, 42.0f, -43.0f);
+		glTexCoord2f(5.0f, 1.0f); glVertex3f(43.0f, 52.0f, -43.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(43.0f, 52.0f, 1.0f);
 	glEnd();
 
@@ -1924,29 +1945,30 @@ void dibujaEscenario(int render)
 		glColor3f(0.2f, 0.8f, 0.6f);
 		glNormal3f(0.0f,0.0f,1.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f( 0.0f, 40.0f, 5.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(45.0f, 40.0f, 5.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(45.0f, 42.0f, 5.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(  0.0f, 42.0f, 5.0f);
+		glTexCoord2f(6.0f, 0.0f); glVertex3f(45.0f, 40.0f, 5.0f);
+		glTexCoord2f(6.0f, 0.15f); glVertex3f(45.0f, 42.0f, 5.0f);
+		glTexCoord2f(0.0f, 0.15f); glVertex3f(  0.0f, 42.0f, 5.0f);
 	glEnd();
+
 
 	//Entre_tejado_XZ_negativo_a
 	glBegin(GL_QUADS);
 		glColor3f(1.0f, 0.3f, 0.6f);
 		glNormal3f(0.0f,-1.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f( 0.0f, 40.0f, 0.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(45.0f, 40.0f, 0.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(45.0f, 40.0f, 5.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f( 0.0f, 40.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.0f);  glVertex3f(0.0f, 40.0f, 0.0f);
+                glTexCoord2f(6.0f, 0.0f);  glVertex3f(45.0f, 40.0f, 0.0f);
+                glTexCoord2f(6.0f, 0.15f); glVertex3f(45.0f, 40.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f( 0.0f, 40.0f, 5.0f);
 	glEnd();
 
 	//Entre_tejado_YZ_positivo
 	glBegin(GL_QUADS);
 		glColor3f(0.8f, 0.8f, 0.1f);
 		glNormal3f(1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(45.0f, 40.0f, 5.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(45.0f, 40.0f, -40.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(45.0f, 42.0f, -40.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(45.0f, 42.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.0f);  glVertex3f(45.0f, 40.0f, 5.0f);
+                glTexCoord2f(6.0f, 0.0f);  glVertex3f(45.0f, 40.0f, -40.0f);
+                glTexCoord2f(6.0f, 0.15f); glVertex3f(45.0f, 42.0f, -40.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f(45.0f, 42.0f, 5.0f);
 	glEnd();
 
 
@@ -1954,12 +1976,12 @@ void dibujaEscenario(int render)
 	glBegin(GL_QUADS);
 		glColor3f(0.2f, 0.3f, 0.7f);
 		glNormal3f(0.0f,-1.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(40.0f, 40.0f, 0.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(40.0f, 40.0f, -40.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(45.0f, 40.0f, -40.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(45.0f, 40.0f, 0.0f);
+                glTexCoord2f(0.0f, 0.0f);  glVertex3f(40.0f, 40.0f, 0.0f);
+                glTexCoord2f(6.0f, 0.0f);  glVertex3f(40.0f, 40.0f, -40.0f);
+                glTexCoord2f(6.0f, 0.15f); glVertex3f(45.0f, 40.0f, -40.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f(45.0f, 40.0f, 0.0f);
 	glEnd();
-
+        glDisable(GL_TEXTURE_2D);
 
 	//Cajas
 
@@ -1974,7 +1996,7 @@ void dibujaEscenario(int render)
 	glPushMatrix();
 		glTranslatef(157.5f, 5.0f, -10.0f);
 		glScalef(2.0f, 2.0f, 2.0f);
-		dibujaCaja(1);
+		dibujaCaja(2);
 	glPopMatrix();
 
 	//C3
@@ -1988,7 +2010,7 @@ void dibujaEscenario(int render)
 	glPushMatrix();
 		glTranslatef(182.5f, 5.0f, -10.0f);
 		glScalef(2.0f, 2.0f, 2.0f);
-		dibujaCaja(1);
+		dibujaCaja(2);
 	glPopMatrix();
 
 	//C5
@@ -2002,86 +2024,94 @@ void dibujaEscenario(int render)
 	glPushMatrix();
 		glTranslatef(207.5f, 5.0f, -10.0f);
 		glScalef(2.0f, 2.0f, 2.0f);
-		dibujaCaja(1);
+		dibujaCaja(2);
 	glPopMatrix();
 
 	//Pared_casa_columna
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textura[1].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.5f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(216.5f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(216.5f, 40.0f, 3.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(211.5f, 40.0f, 3.0f);
+                glTexCoord2f(-0.2f, 0.0f); glVertex3f(211.5f, 0.0f, 3.0f);
+                glTexCoord2f(0.8f, 0.0f); glVertex3f(216.5f, 0.0f, 3.0f);
+                glTexCoord2f(0.8f, 8.0f); glVertex3f(216.5f, 40.0f, 3.0f);
+                glTexCoord2f(-0.2f, 8.0f); glVertex3f(211.5f, 40.0f, 3.0f);
 	glEnd();
 
 	//Pared_casa_columna_YZ_negativo
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.2f, 0.8f);
 		glNormal3f(-1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f,  0.0f, -1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(211.5f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(211.5f, 40.0f, 3.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(211.5f, 40.0f, -1.0f);
+                glTexCoord2f(-0.2f, 0.0f); glVertex3f(211.5f, 0.0f, -1.0f);
+                glTexCoord2f(0.8f, 0.0f);  glVertex3f(211.5f, 0.0f, 3.0f);
+                glTexCoord2f(0.8f, 8.0f);  glVertex3f(211.5f, 40.0f, 3.0f);
+                glTexCoord2f(-0.2f, 8.0f); glVertex3f(211.5f, 40.0f, -1.0f);
 	glEnd();
+
 
 	//Pared_casa_columna_YZ_positivo
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.2f, 0.8f);
 		glNormal3f(1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(216.5f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(216.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(216.5f, 40.0f, 1.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(216.5f, 40.0f, 3.0f);
+                glTexCoord2f(-0.2f, 0.0f); glVertex3f(216.5f, 0.0f, 3.0f);
+                glTexCoord2f(0.8f, 0.0f); glVertex3f(216.5f, 0.0f, 1.0f);
+                glTexCoord2f(0.8f, 8.0f); glVertex3f(216.5f, 40.0f, 1.0f);
+                glTexCoord2f(-0.2f, 8.0f); glVertex3f(216.5f, 40.0f, 3.0f);
 	glEnd();
 
 	//Pared_casa
+        glBindTexture(GL_TEXTURE_2D, textura[0].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.1f, 0.9f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(216.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(346.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(346.5f, 40.0f, 1.0f);
+		glTexCoord2f(3.0f, 0.0f); glVertex3f(346.5f,  0.0f, 1.0f);
+		glTexCoord2f(3.0f, 1.0f); glVertex3f(346.5f, 40.0f, 1.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(216.5f, 40.0f, 1.0f);
 	glEnd();
+
 
 	//Pared_casa_YZ_negativo
 	glBegin(GL_QUADS);
 		glColor3f(0.f, 0.7f, 1.0f);
 		glNormal3f(-1.0f,0.0f,0.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(213.5f,  0.0f, -40.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(213.5f,  0.0f,   1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(213.5f, 40.0f,   1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(213.5f,  0.0f,   1.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(213.5f, 40.0f,   1.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(213.5f, 40.0f, -40.0f);
 	glEnd();
-		
+
+
+
 	//Pared_casa_YZ_positivo
 	glBegin(GL_QUADS);
 		glColor3f(0.8f, 0.7f, 1.0f);
 		glNormal3f(1.0f,0.0f,0.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(349.5f,  0.0f,   1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(349.5f,  0.0f, -40.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(349.5f, 40.0f, -40.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(349.5f,  0.0f, -40.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(349.5f, 40.0f, -40.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(349.5f, 40.0f,   1.0f);
 	glEnd();
 
 	//Tejado_casa
+        glBindTexture(GL_TEXTURE_2D, textura[2].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.2f, 0.5f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(213.5f, 42.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(349.5f, 42.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(349.5f, 52.0f, 1.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(213.5f, 52.0f, 1.0f);
+                glTexCoord2f(0.0f, 0.2f); glVertex3f(213.5f, 42.0f, 1.0f);
+                glTexCoord2f(15.0f, 0.2f); glVertex3f(349.5f, 42.0f, 1.0f);
+                glTexCoord2f(15.0f, 1.0f); glVertex3f(349.5f, 52.0f, 1.0f);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(213.5f, 52.0f, 1.0f);
 	glEnd();
 
 	//Tejado_casa_YZ_negativo
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.4f, 1.0f);
 		glNormal3f(-1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(213.5f, 42.0f, -40.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(213.5f, 42.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(213.5f, 52.0f, 1.0f);
+		glTexCoord2f(0.0f, 0.2f); glVertex3f(213.5f, 42.0f, -40.0f);
+		glTexCoord2f(5.0f, 0.2f); glVertex3f(213.5f, 42.0f, 1.0f);
+		glTexCoord2f(5.0f, 1.0f); glVertex3f(213.5f, 52.0f, 1.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(213.5f, 52.0f, -40.0f);
 	glEnd();
 		
@@ -2089,111 +2119,102 @@ void dibujaEscenario(int render)
 	glBegin(GL_QUADS);
 		glColor3f(0.5f, 0.2f, 1.0f);
 		glNormal3f(1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(349.5f, 42.0f,   1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(349.5f, 42.0f, -40.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(349.5f, 52.0f, -40.0f);
+		glTexCoord2f(0.0f, 0.2f); glVertex3f(349.5f, 42.0f,   1.0f);
+		glTexCoord2f(5.0f, 0.2f); glVertex3f(349.5f, 42.0f, -40.0f);
+		glTexCoord2f(5.0f, 1.0f); glVertex3f(349.5f, 52.0f, -40.0f);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(349.5f, 52.0f,   1.0f);
 	glEnd();
 
-	//Entre_tejado_XZ_negativo_c
-	glBegin(GL_QUADS);
-		glColor3f(0.2f, 0.8f, 0.6f);
-		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f, 40.0f, 5.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(351.5f, 40.0f, 5.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(351.5f, 42.0f, 5.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(211.5f, 42.0f, 5.0f);
-	glEnd();
-
-	
-	//Entre_tejado_XZ_negativo__d
+	//Entre_tejado_XZ_negativo__c
 	glBegin(GL_QUADS);
 		glColor3f(1.0f, 0.0f, 0.2f);
 		glNormal3f(0.0f,-1.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(213.5f, 40.0f, -40.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(213.5f, 40.0f,	  1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(211.5f, 40.0f,   1.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(211.5f, 40.0f, -40.0f);
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f, 40.0f, 1.0f);
+                glTexCoord2f(6.0f, 0.0f); glVertex3f(211.5f, 40.0f, -40.0f);
+                glTexCoord2f(6.0f, 0.15f); glVertex3f(213.5f, 40.0f, -40.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f(213.5f, 40.0f, 1.0f);
 	glEnd();
 
 	//Entre_tejado
 	glBegin(GL_QUADS);
 		glColor3f(0.2f, 0.8f, 0.6f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f, 40.0f, 5.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(351.5f, 40.0f, 5.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(351.5f, 42.0f, 5.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(211.5f, 42.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f, 40.0f, 5.0f);
+                glTexCoord2f(18.0f, 0.0f); glVertex3f(351.5f, 40.0f, 5.0f);
+                glTexCoord2f(18.0f, 0.15f); glVertex3f(351.5f, 42.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f(211.5f, 42.0f, 5.0f);
 	glEnd();
-		
-	//Entre_tejado_XZ_negativo__e
+
+	//Entre_tejado_XZ_negativo__d
 	glBegin(GL_QUADS);
 		glColor3f(0.0f, 0.55f, 0.23f);
 		glNormal3f(0.0f,-1.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f, 40.0f, 0.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(351.5f, 40.0f,	0.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(351.5f, 40.0f, 5.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(211.5f, 40.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f, 40.0f, 0.0f);
+                glTexCoord2f(18.0f, 0.0f); glVertex3f(351.5f, 40.0f, 0.0f);
+                glTexCoord2f(18.0f, 0.15f); glVertex3f(351.5f, 40.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f(211.5f, 40.0f, 5.0f);
 	glEnd();
-	//Entre_tejado_XZ_negativo__f
+	//Entre_tejado_XZ_negativo__e
 	glBegin(GL_QUADS);
 		glColor3f(1.0f, 0.0f, 0.2f);
 		glNormal3f(0.0f,-1.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(349.5f, 40.0f, -40.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(351.5f, 40.0f,	-40.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(351.5f, 40.0f,   0.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(349.5f, 40.0f,   0.0f);
+                glTexCoord2f(0.0f, 0.0f);  glVertex3f(349.5f, 40.0f, 0.0f);
+                glTexCoord2f(6.0f, 0.0f);  glVertex3f(349.5f, 40.0f, -40.0f);
+                glTexCoord2f(6.0f, 0.15f); glVertex3f(351.5f, 40.0f, -40.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f(351.5f, 40.0f, 0.0f);
 	glEnd();
 	
 	//Entre_tejado_YZ_negativ0
 	glBegin(GL_QUADS);
 		glColor3f(1.0f, 0.0f, 1.0f);
 		glNormal3f(-1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(211.5f, 40.0f, -40.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(211.5f, 40.0f, 5.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(211.5f, 42.0f, 5.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(211.5f, 42.0f, -40.0f);
+                glTexCoord2f(0.0f, 0.0f);  glVertex3f(211.5f, 40.0f, -40.0f);
+                glTexCoord2f(6.0f, 0.0f);  glVertex3f(211.5f, 40.0f, 5.0f);
+                glTexCoord2f(6.0f, 0.15f); glVertex3f(211.5f, 42.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f(211.5f, 42.0f, -40.0f);
 	glEnd();
 
-	//Entre_tejado_YZ_negativ0
+	//Entre_tejado_YZ_positivo
 	glBegin(GL_QUADS);
 		glColor3f(1.0f, 0.0f, 1.0f);
 		glNormal3f(1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(351.5f, 40.0f,   5.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(351.5f, 40.0f, -40.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(351.5f, 42.0f, -40.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(351.5f, 42.0f,   5.0f);
+                glTexCoord2f(0.0f, 0.0f);  glVertex3f(351.5f, 40.0f, 5.0f);
+                glTexCoord2f(6.0f, 0.0f);  glVertex3f(351.5f, 40.0f, -40.0f);
+                glTexCoord2f(6.0f, 0.15f); glVertex3f(351.5f, 42.0f, -40.0f);
+                glTexCoord2f(0.0f, 0.15f); glVertex3f(351.5f, 42.0f,   5.0f);
 	glEnd();
 	
 	//Pared_casa_columna
+        glBindTexture(GL_TEXTURE_2D, textura[1].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.5f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(346.5f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(351.5f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(351.5f, 40.0f, 3.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(346.5f, 40.0f, 3.0f);
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(346.5f, 0.0f, 3.0f);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(351.5f, 0.0f, 3.0f);
+                glTexCoord2f(1.0f, 8.0f); glVertex3f(351.5f, 40.0f, 3.0f);
+                glTexCoord2f(0.0f, 8.0f); glVertex3f(346.5f, 40.0f, 3.0f);
 	glEnd();
 
 	//Pared_casa_columna_YZ_negativo
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.2f, 0.8f);
 		glNormal3f(-1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(346.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(346.5f,  0.0f, 3.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(346.5f, 40.0f, 3.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(346.5f, 40.0f, 1.0f);
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(346.5f, 0.0f, 1.0f);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(346.5f, 0.0f, 3.0f);
+                glTexCoord2f(1.0f, 8.0f); glVertex3f(346.5f, 40.0f, 3.0f);
+                glTexCoord2f(0.0f, 8.0f); glVertex3f(346.5f, 40.0f, 1.0f);
 	glEnd();
 
 	//Pared_casa_columna_YZ_positivo
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.2f, 0.8f);
 		glNormal3f(1.0f,0.0f,0.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(351.5f,  0.0f, 5.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(351.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(351.5f, 40.0f, 1.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(351.5f, 40.0f, 5.0f);
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(351.5f, 0.0f, 3.0f);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(351.5f, 0.0f, -1.0f);
+                glTexCoord2f(1.0f, 8.0f); glVertex3f(351.5f, 40.0f, -1.0f);
+                glTexCoord2f(0.0f, 8.0f); glVertex3f(351.5f, 40.0f, 3.0f);
 	glEnd();
+        glDisable(GL_TEXTURE_2D);
 
 	//Cajas
 
@@ -2208,7 +2229,7 @@ void dibujaEscenario(int render)
 	glPushMatrix();
 		glTranslatef(429.0f, 5.0f, -10.0f);
 		glScalef(2.0f, 2.0f, 2.0f);
-		dibujaCaja(1);
+		dibujaCaja(2);
 	glPopMatrix();
 
 	//C3b
@@ -2222,7 +2243,7 @@ void dibujaEscenario(int render)
 	glPushMatrix();
 		glTranslatef(454.0f, 5.0f, -10.0f);
 		glScalef(2.0f, 2.0f, 2.0f);
-		dibujaCaja(1);
+		dibujaCaja(2);
 	glPopMatrix();
 
 	//C5b
@@ -2236,7 +2257,7 @@ void dibujaEscenario(int render)
 	glPushMatrix();
 		glTranslatef(478.5f, 5.0f, -10.0f);
 		glScalef(2.0f, 2.0f, 2.0f);
-		dibujaCaja(1);
+		dibujaCaja(2);
 	glPopMatrix();
 
 	//C7b
@@ -2250,7 +2271,7 @@ void dibujaEscenario(int render)
 	glPushMatrix();
 		glTranslatef(503.5f, 5.0f, -10.0f);
 		glScalef(2.0f, 2.0f, 2.0f);
-		dibujaCaja(1);
+		dibujaCaja(2);
 	glPopMatrix();
 
 	//C9b
@@ -2264,38 +2285,43 @@ void dibujaEscenario(int render)
 	glPushMatrix();
 		glTranslatef(454.0f, 17.0f, -10.0f);
 		glScalef(2.0f, 2.0f, 2.0f);
-		dibujaCaja(1);
+		dibujaCaja(2);
 	glPopMatrix();
 
 	//Columna_final_YZ_negativo
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textura[8].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.2f, 0.8f);
 		glNormal3f(-1.0f,0.0f,0.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(548.5f,  0.0f, -40.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(548.5f,  0.0f,   3.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(548.5f, 55.0f,   3.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(548.5f, 55.0f, -40.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(548.5f,  0.0f,   1.0f);
+		glTexCoord2f(1.0f, 11.0f); glVertex3f(548.5f, 55.0f,   1.0f);
+		glTexCoord2f(0.0f, 11.0f); glVertex3f(548.5f, 55.0f, -40.0f);
 	glEnd();
 
 	//Columna_final_a
+        glBindTexture(GL_TEXTURE_2D, textura[8].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.1f, 0.9f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(548.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(563.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(563.5f, 55.0f, 1.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(548.5f, 55.0f, 1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(558.5f,  0.0f, 1.0f);
+		glTexCoord2f(1.0f, 11.0f); glVertex3f(558.5f, 55.0f, 1.0f);
+		glTexCoord2f(0.0f, 11.0f); glVertex3f(548.5f, 55.0f, 1.0f);
 	glEnd();
 
 	//Columna_final_b
+        glBindTexture(GL_TEXTURE_2D, textura[9].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.6f, 0.9f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(563.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 0.0f); glVertex3f(578.5f,  0.0f, 1.0f);
-		glTexCoord2f(2.0f, 1.0f); glVertex3f(578.5f, 55.0f, 1.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(563.5f, 55.0f, 1.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(558.5f,  0.0f, 1.0f);
+		glTexCoord2f(0.8f, 0.0f); glVertex3f(568.5f,  0.0f, 1.0f);
+		glTexCoord2f(0.8f, 11.0f); glVertex3f(568.5f, 55.0f, 1.0f);
+		glTexCoord2f(0.0f, 11.0f); glVertex3f(558.5f, 55.0f, 1.0f);
 	glEnd();
+        glDisable(GL_TEXTURE_2D);
 
     //Se regresa al modo de dibujo sólido en caso de haber usado modo alambrado
     if (render == 2)
@@ -2427,7 +2453,7 @@ void DibujaLuz(CVector l)
     glPopMatrix();
 
 
-    //glEnable(GL_LIGHTING);				// Habilita Iluminación
+    glEnable(GL_LIGHTING);				// Habilita Iluminación
     glColor3f(1.0f, 1.0f, 1.0f);
 }
 
