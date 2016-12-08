@@ -47,7 +47,7 @@ CTga textureModel9[10];
 CTga textureModel10[10];
 
 //Contenedor de texturas para el escenario
-CTga textura[26];
+CTga textura[29];
 
 //Objeto que da acceso a las funciones del cargador 3ds
 CLoad3DS g_Load3ds;
@@ -147,7 +147,9 @@ void CargaTexturas()
     textura[23].LoadTGA("Texturas/t24.tga");
     textura[24].LoadTGA("Texturas/t25.tga");
     textura[25].LoadTGA("Texturas/t26.tga");
-
+	textura[26].LoadTGA("Texturas/tren.tga");
+    textura[27].LoadTGA("Texturas/tren_izq.tga");
+    textura[28].LoadTGA("Texturas/tren_der.tga");
 }
 
 void DescargaTexturas()
@@ -178,6 +180,10 @@ void DescargaTexturas()
     textura[23].Elimina();
     textura[24].Elimina();
     textura[25].Elimina();
+	textura[26].Elimina();
+    textura[27].Elimina();
+    textura[28].Elimina();
+
 }
 
 int CargaModelos()
@@ -412,7 +418,8 @@ void DatosAnimacion()
 int IniGL(GLvoid)										// Aqui se configuran los parametros iniciales de OpenGL
 {
 	glShadeModel(GL_SMOOTH);							// Activa Smooth Shading
-	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Fondo negro
+	//glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Fondo negro
+	glClearColor(0.22f, 0.48f, 0.76f, 0.5f);			// Fondo azul
 	glClearDepth(1.0f);									// Valor para el Depth Buffer
 	glEnable(GL_DEPTH_TEST);							// Activa Depth Testing
 	glDepthFunc(GL_LEQUAL);								// Tipo de Depth Testing a usar
@@ -935,7 +942,7 @@ void dibujaCilindro(float radio, float alt, int texture_selection)
     CVector *NormalPlano, vec1, vec2;
     CVector Nv1, Nv2, Nv3, Nv4;
 
-    lados = 10;
+    lados = 20;
 
     NormalPlano = new CVector[lados];
 
@@ -1044,7 +1051,7 @@ void dibujaCilindro(float radio, float alt, int texture_selection)
         if (texture_selection == 1){
             glBindTexture(GL_TEXTURE_2D, textura[10].texID);
         }
-        else if (texture_selection == 2)
+        else if (texture_selection == 2 || texture_selection == 5)
         {
             glBindTexture(GL_TEXTURE_2D, textura[12].texID);
         }
@@ -1055,6 +1062,8 @@ void dibujaCilindro(float radio, float alt, int texture_selection)
         else {
             glBindTexture(GL_TEXTURE_2D, textura[13].texID);
         }
+		
+
 
         glBegin(GL_QUADS);
         glNormal3f(Nv1.x, Nv1.y, Nv1.z);
@@ -1073,11 +1082,18 @@ void dibujaCilindro(float radio, float alt, int texture_selection)
         {
             glBindTexture(GL_TEXTURE_2D, textura[23].texID);
         }
+		else if (texture_selection == 5){
+            glBindTexture(GL_TEXTURE_2D, textura[27].texID);
+        }
+		else if (texture_selection == 6){
+            glBindTexture(GL_TEXTURE_2D, textura[28].texID);
+        }
         else
         {
             glBindTexture(GL_TEXTURE_2D, textura[11].texID);
-
         }
+
+
         glBegin(GL_TRIANGLES);
         glNormal3f(0.0f, 1.0f, 0.0f);
         glTexCoord2f(s2t, t2t); glVertex3f(c[0], c[1], c[2]);
@@ -1807,6 +1823,88 @@ void dibujaTransportadora()
     delete[] NormalPlano;
 }
 
+void dibujaTren(){
+
+	glPushMatrix();
+		glTranslatef(234.5f,4.0f,3.0f);
+		glRotatef(90.0f,1.0f,0.0f,0.0f);
+		glRotatef(180.0f,0.0f,1.0f,0.0f);
+		dibujaCilindro(4.0f,2.0f,5);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(234.5f,4.0f,17.0f);
+		glRotatef(90.0f,1.0f,0.0f,0.0f);
+		glRotatef(180.0f,0.0f,1.0f,0.0f);
+		dibujaCilindro(4.0f,2.0f,5);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(273.2f,4.0f,3.0f);
+		glRotatef(90.0f,1.0f,0.0f,0.0f);
+		glRotatef(180.0f,0.0f,1.0f,0.0f);
+		dibujaCilindro(4.0f,2.0f,6);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(273.2f,4.0f,17.0f);
+		glRotatef(90.0f,1.0f,0.0f,0.0f);
+		glRotatef(180.0f,0.0f,1.0f,0.0f);
+		dibujaCilindro(4.0f,2.0f,6);
+	glPopMatrix();
+
+	
+
+	//plataforma
+	//falta la textura
+	glBegin(GL_QUADS);
+		glColor3f(0.1f, 0.9f, 0.5f);
+		glNormal3f(0.0f,1.0f,0.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(225.0f, 8.9f,  3.0f);
+		glTexCoord2f(2.0f, 0.0f); glVertex3f(225.0f, 8.9f, 19.0f);
+		glTexCoord2f(2.0f, 1.0f); glVertex3f(283.0f, 8.9f, 19.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(283.0f, 8.9f,  3.0f);
+	glEnd();
+	
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, textura[26].texID);
+	//plano_frontal
+	glBegin(GL_QUADS);
+		glColor3f(0.6f, 0.9f, 0.8f);
+		glNormal3f(0.0f,0.0f,1.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(225.0f,  6.9f, 19.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(283.0f,  6.9f, 19.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(283.0f, 8.9f, 19.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(225.0f, 8.9f, 19.0f);
+	glEnd();
+
+	//plano_izq
+	glBegin(GL_QUADS);
+		glColor3f(0.9f, 0.3f, 1.0f);
+		glNormal3f(-1.0f,0.0f,0.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(225.0f,  6.9f,   3.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(225.0f,  6.9f,   19.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(225.0f,  8.9f,   19.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(225.0f,  8.9f,   3.0f);
+	glEnd();
+
+	//plano_der
+	glBegin(GL_QUADS);
+		glColor3f(0.9f, 0.3f, 1.0f);
+		glNormal3f(1.0f,0.0f,0.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(283.0f,  6.9f,  19.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(283.0f,  6.9f,   3.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(283.0f,  8.9f,   3.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(283.0f,  8.9f,  19.0f);
+	glEnd();
+
+	
+
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glDisable(GL_TEXTURE_2D);
+}
+
+
 void dibujaEscenario(int render)
 {
     if (render == 1)//sólido
@@ -2321,7 +2419,25 @@ void dibujaEscenario(int render)
 		glTexCoord2f(0.8f, 11.0f); glVertex3f(568.5f, 55.0f, 1.0f);
 		glTexCoord2f(0.0f, 11.0f); glVertex3f(558.5f, 55.0f, 1.0f);
 	glEnd();
-        glDisable(GL_TEXTURE_2D);
+    
+
+	glPushMatrix();
+		glTranslatef(0.0f,0.0f,4.0f);
+		dibujaTren();
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(58.0f,0.0f,4.0f);
+		dibujaTren();
+	glPopMatrix();
+
+	glDisable(GL_TEXTURE_2D);
+	/*glPushMatrix();
+		glTranslatef(88.0f,8.0f,3.0f);
+		glScalef(1.95f,0.8f,0.6f);
+		dibujaTren();
+	glPopMatrix();*/
+
 
     //Se regresa al modo de dibujo sólido en caso de haber usado modo alambrado
     if (render == 2)
