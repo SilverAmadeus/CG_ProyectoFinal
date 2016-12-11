@@ -137,6 +137,16 @@ void CargaTexturas()
 	textura[14].LoadTGA("Texturas/suelo.tga");
 	textura[15].LoadTGA("Texturas/mar.tga");
 	textura[16].LoadTGA("Texturas/edificio_1.tga");
+	textura[17].LoadTGA("Texturas/edificio_2.tga");
+	textura[18].LoadTGA("Texturas/edificio_3.tga");
+	textura[19].LoadTGA("Texturas/edificio_4.tga");
+	textura[20].LoadTGA("Texturas/edificio_5.tga");
+	textura[21].LoadTGA("Texturas/edificio_6.tga");
+	textura[22].LoadTGA("Texturas/edificio_7.tga");
+	textura[23].LoadTGA("Texturas/edificio_8.tga");
+	textura[24].LoadTGA("Texturas/edificio_9.tga");
+	textura[25].LoadTGA("Texturas/edificio_10.tga");
+	textura[26].LoadTGA("Texturas/azul.tga");
 }
 
 void DescargaTexturas()
@@ -158,6 +168,16 @@ void DescargaTexturas()
 	textura[14].Elimina();
 	textura[15].Elimina();
 	textura[16].Elimina();
+	textura[17].Elimina();
+	textura[18].Elimina();
+	textura[19].Elimina();
+	textura[20].Elimina();
+	textura[21].Elimina();
+	textura[22].Elimina();
+	textura[23].Elimina();
+	textura[24].Elimina();
+	textura[25].Elimina();
+	textura[26].Elimina();
 }
 
 int CargaModelos()
@@ -202,15 +222,15 @@ void DescargaModelos()
 
 void inicializaCamara()
 {
-    PosCam = CVector(0.0f, 15.0f, 70.0f);
-    ObjCam = CVector(0.0f, 12.0f, 0.0f);
+    PosCam = CVector(60.0f, 15.0f, 80.0f);
+    ObjCam = CVector(60.0f, 12.0f, 0.0f);
 }
 
 void iniPersonaje(int iD)
 {
     if (iD == 1)//player 1
     {
-        player1.PosicionObj = CVector(0.0f, 0.0f, 12.0f);
+        player1.PosicionObj = CVector(60.0f, 0.0f, 12.0f);
         player1.VelocidadObj = 0.5f;
         player1.AngObj = 90.0f;
 
@@ -1074,11 +1094,34 @@ void dibujaTren(){
 }
 
 
-void dibujaEdificio(){
+void dibujaEdificio(int texture_selection){
 
 	//Pared_casa_columna
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, textura[16].texID);
+
+	if(texture_selection == 0)
+		glBindTexture(GL_TEXTURE_2D, textura[26].texID);
+	else if(texture_selection == 1)
+		glBindTexture(GL_TEXTURE_2D, textura[16].texID);
+	else if(texture_selection == 2)
+		glBindTexture(GL_TEXTURE_2D, textura[17].texID);
+	else if(texture_selection == 3)
+		glBindTexture(GL_TEXTURE_2D, textura[18].texID);
+	else if(texture_selection == 4)
+		glBindTexture(GL_TEXTURE_2D, textura[19].texID);
+	else if(texture_selection == 5)
+		glBindTexture(GL_TEXTURE_2D, textura[20].texID);
+	else if(texture_selection == 6)
+		glBindTexture(GL_TEXTURE_2D, textura[21].texID);
+	else if(texture_selection == 7)
+		glBindTexture(GL_TEXTURE_2D, textura[22].texID);
+	else if(texture_selection == 8)
+		glBindTexture(GL_TEXTURE_2D, textura[23].texID);
+	else if(texture_selection == 9)
+		glBindTexture(GL_TEXTURE_2D, textura[24].texID);
+	else if(texture_selection == 10)
+		glBindTexture(GL_TEXTURE_2D, textura[25].texID);
+
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.5f, 0.8f);
 		glNormal3f(0.0f,0.0f,1.0f);
@@ -1172,6 +1215,58 @@ void dibujaEdificio(){
 	glDisable(GL_TEXTURE_2D);
 
 	glColor3f(1.0f, 1.0f, 1.0f);
+}
+
+void dibujaCiudad(int background_layer){
+
+	glPushMatrix();
+		glTranslatef(-63.0f,14.0f,-330.0f);
+		glScalef(0.25f,1.0f,0.5f);
+		dibujaEdificio(1*background_layer);
+	glPopMatrix();
+	
+	glPushMatrix();
+		glTranslatef(-78.0f,14.0f,-330.0f);
+		glScalef(0.15f,0.75f,0.25f);
+		dibujaEdificio(2*background_layer);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(50.0f,14.0f,-340.0f);
+		glScalef(0.23f,1.0f,0.5f);
+		dibujaEdificio(3*background_layer);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(-71.0f,14.0f,-350.0f);
+		glScalef(0.45f,0.8f,0.25f);
+		dibujaEdificio(4*background_layer);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(-83.0f,14.0f,-330.0f);
+		glScalef(0.55f,0.4f,0.25f);
+		dibujaEdificio(5*background_layer);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(-126.0f,14.0f,-340.0f);
+		glScalef(0.33f,1.0f,0.5f);
+		dibujaEdificio(6*background_layer);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(40.0f,60.0f,-370.0f);
+		glRotatef(-40.0f,0.0f,0.0f,1.0f);
+		glScalef(0.2f,1.6f,0.5f);
+		dibujaEdificio(8*background_layer);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(103.0f,14.0f,-344.0f);
+		glScalef(0.13f,0.75f,0.25f);
+		dibujaEdificio(9*background_layer);
+	glPopMatrix();
 }
 
 void dibujaEscenario(int render)
@@ -1738,17 +1833,17 @@ void dibujaEscenario(int render)
 	//glDisable(GL_LIGHTING);
 	glBindTexture(GL_TEXTURE_2D, textura[14].texID);
 
-	vec1 = CVector(800.0f, 5.0f, -40.0f) - CVector( -10.0f, 5.0f, -40.0f);
-	vec2 = CVector( -10.0f, 7.0f, -180.0f) - CVector( -10.0f, 5.0f, -40.0f);
+	vec1 = CVector(800.0f, 5.0f, -40.0f) - CVector(-140.0f, 5.0f, -40.0f);
+	vec2 = CVector(-140.0f, 7.0f, -180.0f) - CVector(-140.0f, 5.0f, -40.0f);
 	N = Normaliza(Cruz(vec1, vec2));
 
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.3f, 0.4f);
 		glNormal3f(N.x, N.y, N.z);
-		glTexCoord2f(0.0f, 0.25f); glVertex3f( -10.0f, 5.0f, -40.0f);
-		glTexCoord2f(10.0f, 0.25f); glVertex3f(800.0f, 5.0f, -40.0f);
-		glTexCoord2f(10.0f, 0.7f); glVertex3f(800.0f, 7.0f, -180.0f);
-		glTexCoord2f(0.0f, 0.7f); glVertex3f( -10.0f, 7.0f, -180.0f);
+		glTexCoord2f(0.0f, 0.25f); glVertex3f(-140.0f, 5.0f, -40.0f);
+		glTexCoord2f(12.0f, 0.25f); glVertex3f(800.0f, 5.0f, -40.0f);
+		glTexCoord2f(12.0f, 0.7f); glVertex3f(800.0f, 7.0f, -180.0f);
+		glTexCoord2f(0.0f, 0.7f); glVertex3f(-140.0f, 7.0f, -180.0f);
 	glEnd();
 
 	if(animT < 1.0f)
@@ -1756,44 +1851,134 @@ void dibujaEscenario(int render)
 	else 
 		animT = 0;
 
-	vec1 = CVector(800.0f, 7.0f, -180.0f) - CVector( -10.0f, 7.0f, -180.0f);
-	vec2 = CVector( -10.0f, 12.0f, -325.0f) - CVector( -10.0f, 7.0f, -180.0f);
+	vec1 = CVector(800.0f, 7.0f, -180.0f) - CVector(-140.0f, 7.0f, -180.0f);
+	vec2 = CVector(-140.0f, 12.0f, -325.0f) - CVector(-140.0f, 7.0f, -180.0f);
 	N = Normaliza(Cruz(vec1, vec2));
 
 	glBindTexture(GL_TEXTURE_2D, textura[15].texID);
 	glBegin(GL_QUADS);
 		glColor3f(0.4f, 0.3f, 0.4f);
 		glNormal3f(N.x, N.y, N.z);
-		glTexCoord2f(0.0f+animT, 0.0f); glVertex3f( -10.0f, 7.0f, -180.0f);
-		glTexCoord2f(10.0f+animT, 0.0f); glVertex3f(800.0f, 7.0f, -180.0f);
-		glTexCoord2f(10.0f+animT, 0.995f); glVertex3f(800.0f, 12.0f, -320.0f);
-		glTexCoord2f(0.0f+animT, 0.995f); glVertex3f( -10.0f, 12.0f, -320.0f);
+		glTexCoord2f(0.0f+animT, 0.0f); glVertex3f(-180.0f, 7.0f, -180.0f);
+		glTexCoord2f(13.0f+animT, 0.0f); glVertex3f(800.0f, 7.0f, -180.0f);
+		glTexCoord2f(13.0f+animT, 0.995f); glVertex3f(800.0f, 12.0f, -320.0f);
+		glTexCoord2f(0.0f+animT, 0.995f); glVertex3f(-180.0f, 12.0f, -320.0f);
 	glEnd();
 
 	glBegin(GL_QUADS);
 		glColor3f(0.4f, 0.7f, 0.4f);
 		glNormal3f(0.0f,1.0f,0.0f);
-		glTexCoord2f(0.0f, 0.96f); glVertex3f( -10.0f, 14.0f, -320.0f);
-		glTexCoord2f(10.0f, 0.96f); glVertex3f(800.0f, 14.0f, -320.0f);
-		glTexCoord2f(10.0f, 0.995f); glVertex3f(800.0f, 14.0f, -330.0f);
-		glTexCoord2f(0.0f, 0.995f); glVertex3f( -10.0f, 14.0f, -330.0f);
+		glTexCoord2f(0.0f, 0.96f); glVertex3f(-140.0f, 14.0f, -320.0f);
+		glTexCoord2f(12.0f, 0.96f); glVertex3f(800.0f, 14.0f, -320.0f);
+		glTexCoord2f(12.0f, 0.995f); glVertex3f(800.0f, 14.0f, -330.0f);
+		glTexCoord2f(0.0f, 0.995f); glVertex3f(-140.0f, 14.0f, -330.0f);
 	glEnd();
 
 	glBegin(GL_QUADS);
 		glColor3f(0.3f, 0.9f, 0.7f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.96f); glVertex3f( -10.0f, 12.0f, -320.0f);
-		glTexCoord2f(10.0f, 0.96f); glVertex3f(800.0f, 12.0f, -320.0f);
-		glTexCoord2f(10.0f, 0.995f); glVertex3f(800.0f, 14.0f, -320.0f);
-		glTexCoord2f(0.0f, 0.995f); glVertex3f( -10.0f, 14.0f, -320.0f);
+		glTexCoord2f(0.0f, 0.96f); glVertex3f(-140.0f, 12.0f, -320.0f);
+		glTexCoord2f(12.0f, 0.96f); glVertex3f(800.0f, 12.0f, -320.0f);
+		glTexCoord2f(12.0f, 0.995f); glVertex3f(800.0f, 14.0f, -320.0f);
+		glTexCoord2f(0.0f, 0.995f); glVertex3f(-140.0f, 14.0f, -320.0f);
 	glEnd();
 
 	glPushMatrix();
-		glTranslatef(-63.0f,14.0f,-330.0f);
-		glScalef(0.25f,1.0f,0.25f);
-		dibujaEdificio();
+		glTranslatef(-35.0f,14.0f,-370.0f);
+		glScalef(0.2f,1.6f,0.5f);
+		dibujaEdificio(7);
 	glPopMatrix();
-	
+
+	glPushMatrix();
+		glTranslatef(165.0f,14.0f,-370.0f);
+		glScalef(0.2f,1.6f,0.5f);
+		dibujaEdificio(7);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(-180.0f,14.0f,-370.0f);
+		glScalef(0.17f,1.9f,0.5f);
+		dibujaEdificio(10);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(565.0f,14.0f,-370.0f);
+		glScalef(0.2f,1.6f,0.5f);
+		dibujaEdificio(7);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(765.0f,14.0f,-370.0f);
+		glScalef(0.2f,1.6f,0.5f);
+		dibujaEdificio(7);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(420.0f,14.0f,-370.0f);
+		glScalef(0.17f,1.9f,0.5f);
+		dibujaEdificio(10);
+	glPopMatrix();
+
+
+	dibujaCiudad(1);
+
+	glPushMatrix();
+		glTranslatef(-200.0f,0.0f,0.0f);
+		dibujaCiudad(1);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(200.0f,0.0f,0.0f);
+		dibujaCiudad(1);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(400.0f,0.0f,0.0f);
+		dibujaCiudad(1);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(600.0f,0.0f,0.0f);
+		dibujaCiudad(1);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(800.0f,0.0f,0.0f);
+		dibujaCiudad(1);
+	glPopMatrix();
+
+	// ciudad mas atras
+	glPushMatrix();
+		glTranslatef(-250.0f,15.0f,-60.0f);
+		dibujaCiudad(0);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(-50.0f,10.0f,-60.0f);
+		dibujaCiudad(0);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(150.0f,13.0f,-60.0f);
+		dibujaCiudad(0);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(350.0f,7.0f,-60.0f);
+		dibujaCiudad(0);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(550.0f,15.0f,-60.0f);
+		dibujaCiudad(0);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(750.0f,12.0f,-60.0f);
+		dibujaCiudad(0);
+	glPopMatrix();
+
+
 
 	glDisable(GL_TEXTURE_2D);
 
