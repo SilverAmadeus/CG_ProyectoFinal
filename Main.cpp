@@ -89,7 +89,7 @@ FRAME KeyFrame1p1[maxKF1]; //Contenedor para almacenar cada keyframe de la secue
 varsAnim varsAnimP1; //datos de para animacion del player 1
 
 //Variables para iluminacion
-GLfloat LightPos[] = { 145.0f, 380.0f, 140.0f, 1.0f };		// Posición de la luz
+GLfloat LightPos[] = { 150.0f, 380.0f, 140.0f, 1.0f };		// Posición de la luz
 GLfloat LightAmb[] = { 0.7f,  0.7f, 0.7f, 1.0f };		// Valores de la componente ambiente
 GLfloat LightDif[] = { 1.0f,  1.0f, 1.0f, 1.0f };		// Valores de la componente difusa
 GLfloat LightSpc[] = { 0.8f,  0.8f, 0.8f, 1.0f };		// Valores de la componente especular
@@ -222,15 +222,15 @@ void DescargaModelos()
 
 void inicializaCamara()
 {
-    PosCam = CVector(60.0f, 15.0f, 80.0f);
-    ObjCam = CVector(60.0f, 12.0f, 0.0f);
+    PosCam = CVector(65.0f, 15.0f, 90.0f);
+    ObjCam = CVector(65.0f, 12.0f, 0.0f);
 }
 
 void iniPersonaje(int iD)
 {
     if (iD == 1)//player 1
     {
-        player1.PosicionObj = CVector(60.0f, 0.0f, 12.0f);
+        player1.PosicionObj = CVector(65.0f, 0.0f, 12.0f);
         player1.VelocidadObj = 0.5f;
         player1.AngObj = 90.0f;
 
@@ -1840,10 +1840,10 @@ void dibujaEscenario(int render)
 	glBegin(GL_QUADS);
 		glColor3f(0.7f, 0.3f, 0.4f);
 		glNormal3f(N.x, N.y, N.z);
-		glTexCoord2f(0.0f, 0.25f); glVertex3f(-140.0f, 5.0f, -40.0f);
-		glTexCoord2f(12.0f, 0.25f); glVertex3f(800.0f, 5.0f, -40.0f);
-		glTexCoord2f(12.0f, 0.7f); glVertex3f(800.0f, 7.0f, -180.0f);
-		glTexCoord2f(0.0f, 0.7f); glVertex3f(-140.0f, 7.0f, -180.0f);
+		glTexCoord2f(0.0f, 0.25f); glVertex3f(-200.0f, 5.0f, -40.0f);
+		glTexCoord2f(13.0f, 0.25f); glVertex3f(800.0f, 5.0f, -40.0f);
+		glTexCoord2f(13.0f, 0.7f); glVertex3f(800.0f, 7.0f, -180.0f);
+		glTexCoord2f(0.0f, 0.7f); glVertex3f(-200.0f, 7.0f, -180.0f);
 	glEnd();
 
 	if(animT < 1.0f)
@@ -1859,28 +1859,28 @@ void dibujaEscenario(int render)
 	glBegin(GL_QUADS);
 		glColor3f(0.4f, 0.3f, 0.4f);
 		glNormal3f(N.x, N.y, N.z);
-		glTexCoord2f(0.0f+animT, 0.0f); glVertex3f(-180.0f, 7.0f, -180.0f);
+		glTexCoord2f(0.0f+animT, 0.0f); glVertex3f(-200.0f, 7.0f, -180.0f);
 		glTexCoord2f(13.0f+animT, 0.0f); glVertex3f(800.0f, 7.0f, -180.0f);
 		glTexCoord2f(13.0f+animT, 0.995f); glVertex3f(800.0f, 12.0f, -320.0f);
-		glTexCoord2f(0.0f+animT, 0.995f); glVertex3f(-180.0f, 12.0f, -320.0f);
+		glTexCoord2f(0.0f+animT, 0.995f); glVertex3f(-200.0f, 12.0f, -320.0f);
 	glEnd();
 
 	glBegin(GL_QUADS);
 		glColor3f(0.4f, 0.7f, 0.4f);
 		glNormal3f(0.0f,1.0f,0.0f);
-		glTexCoord2f(0.0f, 0.96f); glVertex3f(-140.0f, 14.0f, -320.0f);
-		glTexCoord2f(12.0f, 0.96f); glVertex3f(800.0f, 14.0f, -320.0f);
-		glTexCoord2f(12.0f, 0.995f); glVertex3f(800.0f, 14.0f, -330.0f);
-		glTexCoord2f(0.0f, 0.995f); glVertex3f(-140.0f, 14.0f, -330.0f);
+		glTexCoord2f(0.0f, 0.96f); glVertex3f(-200.0f, 14.0f, -320.0f);
+		glTexCoord2f(13.0f, 0.96f); glVertex3f(800.0f, 14.0f, -320.0f);
+		glTexCoord2f(13.0f, 0.995f); glVertex3f(800.0f, 14.0f, -350.0f);
+		glTexCoord2f(0.0f, 0.995f); glVertex3f(-200.0f, 14.0f, -350.0f);
 	glEnd();
 
 	glBegin(GL_QUADS);
 		glColor3f(0.3f, 0.9f, 0.7f);
 		glNormal3f(0.0f,0.0f,1.0f);
-		glTexCoord2f(0.0f, 0.96f); glVertex3f(-140.0f, 12.0f, -320.0f);
-		glTexCoord2f(12.0f, 0.96f); glVertex3f(800.0f, 12.0f, -320.0f);
-		glTexCoord2f(12.0f, 0.995f); glVertex3f(800.0f, 14.0f, -320.0f);
-		glTexCoord2f(0.0f, 0.995f); glVertex3f(-140.0f, 14.0f, -320.0f);
+		glTexCoord2f(0.0f, 0.96f); glVertex3f(-200.0f, 12.0f, -320.0f);
+		glTexCoord2f(13.0f, 0.96f); glVertex3f(800.0f, 12.0f, -320.0f);
+		glTexCoord2f(13.0f, 0.995f); glVertex3f(800.0f, 14.0f, -320.0f);
+		glTexCoord2f(0.0f, 0.995f); glVertex3f(-200.0f, 14.0f, -320.0f);
 	glEnd();
 
 	glPushMatrix();
@@ -2145,21 +2145,28 @@ int RenderizaEscena(GLvoid)								// Aqui se dibuja todo lo que aparecera en la
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    for (int iNumViewPort = 0; iNumViewPort<2; iNumViewPort++)
+    for (int iNumViewPort = 0; iNumViewPort<3; iNumViewPort++)
     {
         if (iNumViewPort == 0)//Se crea el puerto de vista 1 (Escenario)
         {
-            glViewport(0, glHeight*0.05f, glWidth, glHeight*0.75f);
+            glViewport(0, glHeight*0.05f, glWidth, glHeight*0.95f);
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
-            gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.75f), 1.0f, 2000.0f);
+            gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.96f), 1.0f, 2000.0f);
         }
         if (iNumViewPort == 1)//Se crea el puerto de vista 2 (Indicadores de estado del personaje)
         {
-            //glViewport(0, 0, glWidth, glHeight*0.25f);
-            //glMatrixMode(GL_PROJECTION);
-            //glLoadIdentity();
-            //gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.25f), 1.0f, 2000.0f);
+            glViewport(0, 0, glWidth, glHeight*0.05f);
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.05f), 1.0f, 2000.0f);
+        }
+		if (iNumViewPort == 2)//Se crea el puerto de vista 2 (Indicadores de estado del personaje)
+        {
+            glViewport(0, glHeight*0.96f, glWidth, glHeight*0.05f);
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            gluPerspective(45.0f, (GLfloat)glWidth / (GLfloat)(glHeight*0.05f), 1.0f, 2000.0f);
         }
 
         glMatrixMode(GL_MODELVIEW);
@@ -2195,39 +2202,73 @@ int RenderizaEscena(GLvoid)								// Aqui se dibuja todo lo que aparecera en la
 
         if (iNumViewPort == 1) //Se dibuja en el puerto de vista 2
         {
-            ////Se crea una proyección paralela para dibujar en 2D "sobre" la pantalla
-            //glDisable(GL_DEPTH_TEST);		// Desactiva la prueba de profundidad
-            //glMatrixMode(GL_PROJECTION);		// Selecciona la matriz de proyección
-            //glPushMatrix();				// Guarda la matriz de proyección
-            //glLoadIdentity();			// Limpia la matriz de proyección
-            //glOrtho(0, glWidth, 0, glHeight, -1, 1);	// Crea una proyección ortogonal
-            //glMatrixMode(GL_MODELVIEW);		// Selecciona la matriz de modelo de vista
-            //glPushMatrix();				// Guarda la matriz de modelo de vista
+            //Se crea una proyección paralela para dibujar en 2D "sobre" la pantalla
+            glDisable(GL_DEPTH_TEST);		// Desactiva la prueba de profundidad
+            glMatrixMode(GL_PROJECTION);		// Selecciona la matriz de proyección
+            glPushMatrix();				// Guarda la matriz de proyección
+            glLoadIdentity();			// Limpia la matriz de proyección
+            glOrtho(0, glWidth, 0, glHeight, -1, 1);	// Crea una proyección ortogonal
+            glMatrixMode(GL_MODELVIEW);		// Selecciona la matriz de modelo de vista
+            glPushMatrix();				// Guarda la matriz de modelo de vista
 
-            //glLoadIdentity();
+            glLoadIdentity();
 
-            //glDisable(GL_LIGHTING);
-            //glEnable(GL_TEXTURE_2D);
-            //glBindTexture(GL_TEXTURE_2D, textura[25].texID);
+            glDisable(GL_LIGHTING);
 
-            //glBegin(GL_QUADS);
-            //glTexCoord2f(0.0f, 0.0f); glVertex2f(glWidth*0.0f, glHeight*0.0f);
-            //glTexCoord2f(1.0f, 0.0f); glVertex2f(glWidth*1.0f, glHeight*0.0f);
-            //glTexCoord2f(1.0f, 1.0f); glVertex2f(glWidth*1.0f, glHeight*1.0f);
-            //glTexCoord2f(0.0f, 1.0f); glVertex2f(glWidth*0.0f, glHeight*1.0f);
-            //glEnd();
+            glBegin(GL_QUADS);
+				glColor3f(0.0f,0.0f,0.0f);
+				glVertex2f(glWidth*0.0f, glHeight*0.0f);
+				glVertex2f(glWidth*1.0f, glHeight*0.0f);
+				glVertex2f(glWidth*1.0f, glHeight*1.0f);
+				glVertex2f(glWidth*0.0f, glHeight*1.0f);
+            glEnd();
 
-            //glDisable(GL_TEXTURE_2D);
-            //glEnable(GL_LIGHTING);
+            
+            glEnable(GL_LIGHTING);
 
-            ////Se recupera la proyección en perspectiva original
-            //glMatrixMode(GL_PROJECTION);		// Selecciona la matriz de proyección
-            //glPopMatrix();				// Recupera la anterior matriz de proyección
-            //glMatrixMode(GL_MODELVIEW);		// Selecciona la matriz de modelo de vista
-            //glPopMatrix();				// Recupera la anterior matriz de modelo de vista
-            //glEnable(GL_DEPTH_TEST);		// Activa la prueba de profundidad
+            //Se recupera la proyección en perspectiva original
+            glMatrixMode(GL_PROJECTION);		// Selecciona la matriz de proyección
+            glPopMatrix();				// Recupera la anterior matriz de proyección
+            glMatrixMode(GL_MODELVIEW);		// Selecciona la matriz de modelo de vista
+            glPopMatrix();				// Recupera la anterior matriz de modelo de vista
+            glEnable(GL_DEPTH_TEST);		// Activa la prueba de profundidad
 
         }
+		if (iNumViewPort == 2) //Se dibuja en el puerto de vista 2
+        {
+            //Se crea una proyección paralela para dibujar en 2D "sobre" la pantalla
+            glDisable(GL_DEPTH_TEST);		// Desactiva la prueba de profundidad
+            glMatrixMode(GL_PROJECTION);		// Selecciona la matriz de proyección
+            glPushMatrix();				// Guarda la matriz de proyección
+            glLoadIdentity();			// Limpia la matriz de proyección
+            glOrtho(0, glWidth, 0, glHeight, -1, 1);	// Crea una proyección ortogonal
+            glMatrixMode(GL_MODELVIEW);		// Selecciona la matriz de modelo de vista
+            glPushMatrix();				// Guarda la matriz de modelo de vista
+
+            glLoadIdentity();
+
+            glDisable(GL_LIGHTING);
+
+            glBegin(GL_QUADS);
+				glColor3f(0.0f,0.0f,0.0f);
+				glVertex2f(glWidth*0.0f, glHeight*0.0f);
+				glVertex2f(glWidth*1.0f, glHeight*0.0f);
+				glVertex2f(glWidth*1.0f, glHeight*1.0f);
+				glVertex2f(glWidth*0.0f, glHeight*1.0f);
+            glEnd();
+
+            
+            glEnable(GL_LIGHTING);
+
+            //Se recupera la proyección en perspectiva original
+            glMatrixMode(GL_PROJECTION);		// Selecciona la matriz de proyección
+            glPopMatrix();				// Recupera la anterior matriz de proyección
+            glMatrixMode(GL_MODELVIEW);		// Selecciona la matriz de modelo de vista
+            glPopMatrix();				// Recupera la anterior matriz de modelo de vista
+            glEnable(GL_DEPTH_TEST);		// Activa la prueba de profundidad
+
+        }
+
     }
 
     return TRUE;
